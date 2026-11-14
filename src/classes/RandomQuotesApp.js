@@ -28,10 +28,9 @@ class RandomQuotesApp {
     this.chahgeCurrentQuote(RandomQuote.getRandomQuote());
   }
 
-  getRandomQuoteViaAPI() {
-    RandomQuote.getRandomQuoteViaAPI().then((quote) =>
-      this.chahgeCurrentQuote(quote),
-    );
+  async getRandomQuoteViaAPI() {
+    const quoteViaAPI = await RandomQuote.getRandomQuoteViaAPI();
+    this.chahgeCurrentQuote(quoteViaAPI);
   }
 
   init() {

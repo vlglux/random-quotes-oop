@@ -9,13 +9,25 @@ class RandomQuote {
     return new Quote(id, text, author);
   }
 
-  static getRandomQuoteViaAPI() {
+  // static getRandomQuoteViaAPI() {
+  //   const url = 'https://api.quotable.io/random';
+  //   const options = { headers: { 'Content-Type': 'application/json' } };
+  //   return fetch(url, options)
+  //     .then((response) => response.json())
+  //     .then(({ _id: id, content, author }) => new Quote(id, content, author))
+  //     .catch((error) => console.error(error));
+  // }
+
+  static async getRandomQuoteViaAPI() {
     const url = 'https://api.quotable.io/random';
     const options = { headers: { 'Content-Type': 'application/json' } };
-    return fetch(url, options)
-      .then((response) => response.json())
-      .then(({ _id: id, content, author }) => new Quote(id, content, author))
-      .catch((error) => console.error(error));
+    try {
+      const response = await fetch(url, options);
+      const { _id: id, content, author } = await response.json();
+      return new Quote(id, content, author);
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
 
